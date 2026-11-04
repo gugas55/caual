@@ -262,6 +262,12 @@ h4 {
   gap: var(--sp-8);
 }
 
+.page-loader__logo {
+  width: 260px;
+  max-width: 70vw;
+  height: auto;
+}
+
 .page-loader__spinner {
   width: 34px;
   height: 34px;

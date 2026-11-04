@@ -25,6 +25,12 @@
   text-align: center;
 }
 
+.auth__logo {
+  width: 340px;
+  max-width: 78vw;
+  height: auto;
+}
+
 .auth__tagline {
   font-size: var(--text-callout);
   color: var(--secondary);

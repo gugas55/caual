@@ -66,6 +66,29 @@
   flex-shrink: 0;
 }
 
+/* Logótipo do centro (completo) e, com a barra recolhida, só o símbolo. */
+.sidebar__logo-link {
+  display: block;
+  width: 100%;
+  border-radius: var(--r-md);
+}
+
+.sidebar__logo {
+  display: block;
+  width: 100%;
+  max-width: 212px;
+  height: auto;
+}
+
+.sidebar__symbol {
+  display: none;
+  width: 42px;
+  height: 42px;
+  margin: 0 auto;
+}
+
+.app.is-collapsed .sidebar__symbol { display: block; }
+
 .sidebar__context {
   margin: 6px 14px 4px;
   padding: 10px 14px;
@@ -270,7 +293,7 @@
 .sidebar__logout:hover { background: rgba(255, 255, 255, 0.85); color: var(--danger); }
 
 /* Barra recolhida: só ícones. */
-.app.is-collapsed .brand__text,
+.app.is-collapsed .sidebar__logo,
 .app.is-collapsed .sidebar__context,
 .app.is-collapsed .nav-group__title,
 .app.is-collapsed .nav-item__label,
@@ -379,7 +402,7 @@
 
   .app.is-nav-open .sidebar { transform: none; }
 
-  .app.is-collapsed .brand__text,
+  .app.is-collapsed .sidebar__logo,
   .app.is-collapsed .sidebar__context,
   .app.is-collapsed .nav-group__title,
   .app.is-collapsed .nav-item__label,
@@ -387,6 +410,8 @@
   .app.is-collapsed .nav-rail,
   .app.is-collapsed .sidebar__user,
   .app.is-collapsed .sidebar__logout { display: revert; }
+
+  .app.is-collapsed .sidebar__symbol { display: none; }
 
   .app.is-collapsed .nav-group__items { grid-template-columns: 12px minmax(0, 1fr); }
   .app.is-collapsed .nav-item { justify-content: flex-start; padding: 0 12px; }

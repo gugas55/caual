@@ -68,12 +68,9 @@ const Shell = (() => {
   function render(sidebar, active, user) {
     sidebar.innerHTML = `
       <div class="sidebar__brand">
-        <a class="brand" href="painel.html" aria-label="CAUAL, painel inicial">
-          <img class="brand__mark" src="assets/img/caual-mark.svg" alt="" />
-          <span class="brand__text">
-            <span class="brand__name">CAUAL</span>
-            <span class="brand__tag">Arbitragem e mediação</span>
-          </span>
+        <a class="sidebar__logo-link" href="painel.html" aria-label="Centro de Arbitragem da Universidade Autónoma de Lisboa, painel inicial">
+          <img class="sidebar__logo" src="assets/img/logo-caual.png" alt="" />
+          <img class="sidebar__symbol" src="assets/img/logo-caual-simbolo.png" alt="" />
         </a>
       </div>
 

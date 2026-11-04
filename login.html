@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.3; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://fcuuwdzoxtoybtoxfofo.supabase.co wss://fcuuwdzoxtoybtoxfofo.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self';" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#00609e" />
+  <link rel="icon" type="image/svg+xml" href="assets/img/caual-mark.svg" />
+  <title>CAUAL · Iniciar sessão</title>
+  <meta name="description" content="Aceda à plataforma de gestão do CAUAL, Centro de Arbitragem e Mediação de Conflitos." />
+
+  <link rel="stylesheet" href="assets/css/base.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/pages/auth.css" />
+</head>
+
+<body>
+
+  <div id="page-loader">
+    <div class="page-loader__inner">
+      <span class="brand brand--lg">
+        <img class="brand__mark" src="assets/img/caual-mark.svg" alt="" />
+        <span class="brand__text"><span class="brand__name">CAUAL</span></span>
+      </span>
+      <span class="page-loader__spinner"></span>
+    </div>
+  </div>
+  <script src="assets/js/core/mesh-background.js"></script>
+
+  <div class="auth">
+
+    <header class="auth__brand">
+      <span class="brand brand--lg">
+        <img class="brand__mark" src="assets/img/caual-mark.svg" alt="" />
+        <span class="brand__text">
+          <span class="brand__name">CAUAL</span>
+          <span class="brand__tag">Arbitragem e mediação</span>
+        </span>
+      </span>
+      <p class="auth__tagline">Plataforma de gestão do Centro de Arbitragem e Mediação de Conflitos</p>
+    </header>
+
+    <main class="auth__card">
+      <h1 class="auth__title">Iniciar sessão</h1>
+      <p class="auth__subtitle">Insira as suas credenciais para aceder ao sistema.</p>
+
+      <form class="auth__fields" data-login-form novalidate>
+        <p class="alert alert--danger" data-login-error role="alert" hidden></p>
+
+        <label class="field">
+          <span class="field__label">Email</span>
+          <input class="input" type="email" name="email" placeholder="nome@exemplo.pt" autocomplete="username" required />
+        </label>
+
+        <div class="field">
+          <span class="field__row">
+            <label class="field__label" for="login-password">Palavra-passe</label>
+            <a class="auth__link" href="#" data-modal-open="modal-forgot">Esqueceu-se da palavra-passe?</a>
+          </span>
+          <span class="input-wrap">
+            <input class="input" id="login-password" type="password" name="password" placeholder="••••••••" autocomplete="current-password" required />
+            <button class="btn-icon btn-icon--bare input-wrap__action" type="button" data-toggle-password aria-label="Mostrar palavra-passe" aria-pressed="false">
+              <svg class="icon" data-icon="eye"></svg>
+            </button>
+          </span>
+        </div>
+
+        <label class="checkbox auth__remember">
+          <input type="checkbox" name="remember" />
+          <span>Manter sessão iniciada neste dispositivo</span>
+        </label>
+
+        <button class="btn btn--primary btn--block" type="submit" data-login-submit>
+          <span data-login-label>Entrar</span>
+        </button>
+      </form>
+
+      <form class="auth__fields" data-recovery-form novalidate hidden>
+        <p class="alert alert--danger" data-recovery-error role="alert" hidden></p>
+
+        <div class="field">
+          <label class="field__label" for="nova-password">Nova palavra-passe</label>
+          <span class="input-wrap">
+            <input class="input" id="nova-password" type="password" name="password" autocomplete="new-password" minlength="10" required />
+            <button class="btn-icon btn-icon--bare input-wrap__action" type="button" data-toggle-password aria-label="Mostrar palavra-passe" aria-pressed="false">
+              <svg class="icon" data-icon="eye"></svg>
+            </button>
+          </span>
+          <span class="auth__hint">Pelo menos 10 caracteres, com maiúsculas, minúsculas e algarismos.</span>
+        </div>
+
+        <label class="field">
+          <span class="field__label">Confirmar palavra-passe</span>
+          <input class="input" type="password" name="confirm" autocomplete="new-password" minlength="10" required />
+        </label>
+
+        <button class="btn btn--primary btn--block" type="submit" data-recovery-submit>
+          <span>Guardar e entrar</span>
+        </button>
+      </form>
+
+      <div class="auth__divider" data-login-extra><span>Acesso reservado a colaboradores</span></div>
+
+      <p class="auth__help" data-login-extra>Ainda não tem conta? Peça acesso à direção do centro.</p>
+    </main>
+
+    <footer class="auth__footer">
+      <span>© <span data-year></span> CAUAL</span>
+      <span class="auth__footer-dot" aria-hidden="true"></span>
+      <span>Centro de Arbitragem e Mediação de Conflitos</span>
+      <span class="auth__footer-dot" aria-hidden="true"></span>
+      <span>Português (PT)</span>
+    </footer>
+
+  </div>
+
+  <div class="modal" id="modal-forgot" role="dialog" aria-modal="true" aria-labelledby="modal-forgot-title" aria-hidden="true">
+    <div class="modal__dialog modal__dialog--sm">
+      <header class="modal__header">
+        <svg class="icon" data-icon="lock"></svg>
+        <h2 class="modal__title" id="modal-forgot-title">Recuperar palavra-passe</h2>
+        <button class="btn-icon btn-icon--bare modal__close" type="button" data-modal-close aria-label="Fechar">
+          <svg class="icon icon-sm" data-icon="close"></svg>
+        </button>
+      </header>
+
+      <form data-forgot-form novalidate>
+        <div class="modal__body">
+          <p class="modal__text">Indique o email da sua conta. Enviamos uma mensagem com uma ligação para definir uma nova palavra-passe.</p>
+          <p class="alert alert--danger" data-forgot-error role="alert" hidden></p>
+          <p class="alert alert--success" data-forgot-success role="status" hidden>Se existir uma conta com este email, vai receber a mensagem dentro de momentos.</p>
+          <label class="field">
+            <span class="field__label">Email</span>
+            <input class="input" type="email" name="email" placeholder="nome@exemplo.pt" autocomplete="email" required />
+          </label>
+        </div>
+        <footer class="modal__footer">
+          <button class="btn btn--outline" type="button" data-modal-close>Cancelar</button>
+          <button class="btn btn--primary" type="submit">Enviar ligação</button>
+        </footer>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.3" integrity="sha384-l8ah+VgaWtk1mvOe9VC+OirC6qHFF4yH7l7mKRidV9MSti3E9F463bMp6ZVN4kuC" crossorigin="anonymous"></script>
+  <script src="assets/js/core/supabase-client.js"></script>
+  <script src="assets/js/core/icons.js"></script>
+  <script src="assets/js/core/ui.js"></script>
+  <script src="assets/js/core/session.js"></script>
+  <script src="assets/js/pages/auth.js"></script>
+</body>
+</html>

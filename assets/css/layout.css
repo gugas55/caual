@@ -1,0 +1,421 @@
+/* =====================================================================
+   CAUAL · estrutura da app
+   Barra lateral e barra do topo como cartões de vidro flutuantes sobre o
+   fundo, como no desktop da Hotel Solutions. Até 1024 px a barra lateral
+   passa a gaveta, aberta pelo botão do topo.
+   ===================================================================== */
+
+.app {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+  gap: var(--sp-4);
+  height: 100vh;
+  height: 100dvh;
+  padding: var(--sp-4);
+  transition: grid-template-columns var(--t-med);
+}
+
+.app.is-collapsed { grid-template-columns: var(--sidebar-w-collapsed) minmax(0, 1fr); }
+
+.app__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  min-width: 0;
+  min-height: 0;
+}
+
+.app__content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  /* Espaço para a sombra dos cartões e para o separador do chat. */
+  margin: 0 -8px;
+  padding: 2px 8px 24px;
+}
+
+/* ---------------------------------------------------------------------
+   Barra lateral
+   --------------------------------------------------------------------- */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--edge);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(34px) saturate(180%);
+  -webkit-backdrop-filter: blur(34px) saturate(180%);
+  box-shadow: 0 20px 50px -20px rgba(16, 32, 56, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  z-index: 30;
+}
+
+.sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 76px;
+  padding: 18px 20px 10px;
+  flex-shrink: 0;
+}
+
+.sidebar__context {
+  margin: 6px 14px 4px;
+  padding: 10px 14px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  background: rgba(255, 255, 255, 0.55);
+  flex-shrink: 0;
+}
+
+.sidebar__context-label {
+  display: block;
+  font-size: var(--text-caption);
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tertiary);
+}
+
+.sidebar__context-value {
+  display: block;
+  font-size: var(--text-callout);
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar__nav {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 16px 12px;
+  scrollbar-width: none;
+}
+
+.sidebar__nav::-webkit-scrollbar { display: none; }
+
+.nav-group__title {
+  margin: 0 0 6px 8px;
+  font-size: var(--text-caption);
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tertiary);
+  white-space: nowrap;
+}
+
+/* Trilho lateral: uma linha por grupo; o troço até ao item ativo fica a
+   azul, com um marcador em losango sobre ele, e o fim da lista leva um
+   pontinho. A mesma ideia do People na Hotel Solutions. */
+.nav-group__items {
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr);
+  column-gap: 8px;
+  row-gap: 2px;
+}
+
+.nav-rail {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-rail::before {
+  content: "";
+  width: 1px;
+  height: 100%;
+  background: var(--hairline);
+}
+
+.nav-rail.is-lit::before { background: var(--accent); }
+
+.nav-rail.is-marker::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 1.5px;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.nav-rail.is-end .nav-rail__end {
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: var(--r-full);
+  background: rgba(40, 55, 75, 0.2);
+  transform: translateX(-50%);
+}
+
+.nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 42px;
+  padding: 0 12px;
+  border-radius: var(--r-md);
+  color: var(--ink-soft);
+  font-size: var(--text-callout);
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background var(--t-fast), color var(--t-fast);
+}
+
+.nav-item .icon { color: var(--secondary); transition: color var(--t-fast); }
+
+.nav-item:hover { background: rgba(255, 255, 255, 0.7); color: var(--ink); }
+.nav-item:hover .icon { color: var(--ink-soft); }
+
+.nav-item.is-active {
+  background: var(--accent-gradient);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 8px 18px -8px rgba(0, 76, 128, 0.7);
+}
+
+.nav-item.is-active .icon { color: #fff; }
+
+.nav-item__label { overflow: hidden; text-overflow: ellipsis; }
+
+.nav-item__badge {
+  margin-left: auto;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: var(--r-full);
+  background: var(--danger);
+  color: #fff;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+}
+
+.nav-item.is-active .nav-item__badge { background: rgba(255, 255, 255, 0.3); }
+
+.sidebar__footer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px 16px;
+  flex-shrink: 0;
+}
+
+.sidebar__footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 16px;
+  right: 16px;
+  height: 1px;
+  background: var(--hairline);
+}
+
+.sidebar__user { min-width: 0; line-height: 1.25; }
+
+.sidebar__user-name {
+  display: block;
+  font-size: var(--text-footnote);
+  font-weight: 650;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar__user-role {
+  display: block;
+  font-size: var(--text-caption);
+  color: var(--secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar__logout {
+  margin-left: auto;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-full);
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--secondary);
+  transition: background var(--t-fast), color var(--t-fast);
+}
+
+.sidebar__logout:hover { background: rgba(255, 255, 255, 0.85); color: var(--danger); }
+
+/* Barra recolhida: só ícones. */
+.app.is-collapsed .brand__text,
+.app.is-collapsed .sidebar__context,
+.app.is-collapsed .nav-group__title,
+.app.is-collapsed .nav-item__label,
+.app.is-collapsed .nav-item__badge,
+.app.is-collapsed .nav-rail,
+.app.is-collapsed .sidebar__user,
+.app.is-collapsed .sidebar__logout { display: none; }
+
+.app.is-collapsed .sidebar__brand,
+.app.is-collapsed .sidebar__footer { justify-content: center; padding-left: 0; padding-right: 0; }
+
+.app.is-collapsed .nav-group__items { grid-template-columns: minmax(0, 1fr); }
+.app.is-collapsed .nav-item { justify-content: center; padding: 0; }
+.app.is-collapsed .sidebar__footer::before { left: 14px; right: 14px; }
+
+/* ---------------------------------------------------------------------
+   Barra do topo
+   --------------------------------------------------------------------- */
+
+.topbar {
+  position: relative;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-height: 76px;
+  padding: 12px 14px 12px 14px;
+  flex-shrink: 0;
+  border: 1px solid var(--edge);
+  border-radius: var(--r-bar);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  box-shadow: var(--shadow-bar);
+}
+
+.topbar__toggle { background: transparent; color: var(--secondary); }
+
+.topbar__titles { min-width: 0; line-height: 1.25; }
+
+.topbar__title {
+  font-size: 1.375rem;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+}
+
+.topbar__subtitle {
+  margin-top: 2px;
+  font-size: var(--text-footnote);
+  color: var(--secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topbar__actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.topbar__search { width: clamp(220px, 26vw, 340px); }
+
+.nav-backdrop { display: none; }
+
+/* ---------------------------------------------------------------------
+   Grelhas de conteúdo
+   --------------------------------------------------------------------- */
+
+.grid { display: grid; gap: var(--sp-4); }
+.grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid--2-1 { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+
+@media (max-width: 1360px) {
+  .grid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid--3 > :last-child { grid-column: 1 / -1; }
+}
+
+@media (max-width: 1200px) {
+  .grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid--2-1 { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------------------------------------------------------------------
+   Até 1024 px: barra lateral em gaveta
+   --------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .app,
+  .app.is-collapsed { grid-template-columns: minmax(0, 1fr); }
+
+  .sidebar {
+    position: fixed;
+    top: var(--sp-3);
+    bottom: var(--sp-3);
+    left: var(--sp-3);
+    /* Por cima da barra do topo e do botão do chat, por baixo dos popups. */
+    z-index: 557;
+    width: var(--sidebar-w);
+    background: rgba(255, 255, 255, 0.94);
+    transform: translateX(calc(-100% - 24px));
+    transition: transform var(--t-med);
+  }
+
+  .app.is-nav-open .sidebar { transform: none; }
+
+  .app.is-collapsed .brand__text,
+  .app.is-collapsed .sidebar__context,
+  .app.is-collapsed .nav-group__title,
+  .app.is-collapsed .nav-item__label,
+  .app.is-collapsed .nav-item__badge,
+  .app.is-collapsed .nav-rail,
+  .app.is-collapsed .sidebar__user,
+  .app.is-collapsed .sidebar__logout { display: revert; }
+
+  .app.is-collapsed .nav-group__items { grid-template-columns: 12px minmax(0, 1fr); }
+  .app.is-collapsed .nav-item { justify-content: flex-start; padding: 0 12px; }
+
+  .nav-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 556;
+    background: rgba(6, 20, 38, 0.36);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--t-med);
+  }
+
+  .app.is-nav-open .nav-backdrop { opacity: 1; pointer-events: auto; }
+}
+
+@media (max-width: 760px) {
+  .app { padding: var(--sp-3); gap: var(--sp-3); }
+  .app__content { gap: var(--sp-3); }
+  .topbar { flex-wrap: wrap; min-height: 0; }
+  .topbar__titles { flex: 1; }
+  .topbar__actions { width: 100%; }
+  .topbar__search { flex: 1; width: auto; }
+  .grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-3); }
+  .grid--3 { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .grid--4 { grid-template-columns: minmax(0, 1fr); }
+}

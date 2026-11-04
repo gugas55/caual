@@ -1,0 +1,5 @@
+# Ferramentas locais (Claude Code, Impeccable, CLI da Supabase)
+.claude/
+.impeccable/
+supabase/.temp/
+.DS_Store

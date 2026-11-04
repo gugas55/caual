@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.3; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://fcuuwdzoxtoybtoxfofo.supabase.co wss://fcuuwdzoxtoybtoxfofo.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self';" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#00609e" />
+  <link rel="icon" type="image/svg+xml" href="assets/img/caual-mark.svg" />
+  <title>CAUAL · Painel inicial</title>
+  <meta name="description" content="Indicadores do centro: processos, resoluções, avisos, agenda e pedidos de adesão." />
+
+  <link rel="stylesheet" href="assets/css/base.css" />
+  <link rel="stylesheet" href="assets/css/layout.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/chat.css" />
+  <link rel="stylesheet" href="assets/css/pages/painel.css" />
+</head>
+
+<body data-hold-loader>
+
+  <div id="page-loader">
+    <div class="page-loader__inner">
+      <span class="brand brand--lg">
+        <img class="brand__mark" src="assets/img/caual-mark.svg" alt="" />
+        <span class="brand__text"><span class="brand__name">CAUAL</span></span>
+      </span>
+      <span class="page-loader__spinner"></span>
+    </div>
+  </div>
+  <script src="assets/js/core/mesh-background.js"></script>
+
+  <div class="app">
+
+    <aside class="sidebar" data-sidebar></aside>
+    <div class="nav-backdrop"></div>
+
+    <div class="app__main">
+
+      <header class="topbar">
+        <button class="btn-icon topbar__toggle" type="button" data-action="toggle-sidebar" aria-label="Mostrar ou esconder o menu">
+          <svg class="icon" data-icon="menu"></svg>
+        </button>
+
+        <div class="topbar__titles">
+          <h1 class="topbar__title">Painel inicial</h1>
+          <p class="topbar__subtitle" data-greeting>&nbsp;</p>
+        </div>
+
+        <div class="topbar__actions">
+          <label class="search topbar__search">
+            <svg class="icon icon-sm" data-icon="search"></svg>
+            <span class="sr-only">Pesquisar processos</span>
+            <input class="input" type="search" placeholder="Pesquisar processo, parte ou matéria" data-search autocomplete="off" />
+          </label>
+
+          <div class="notif">
+            <button class="btn-icon" type="button" data-notif-toggle aria-haspopup="true" aria-expanded="false" aria-label="Notificações">
+              <svg class="icon" data-icon="bell"></svg>
+              <span class="btn-icon__dot" data-notif-dot hidden></span>
+            </button>
+            <div class="popover" data-notif-popover hidden></div>
+          </div>
+        </div>
+      </header>
+
+      <main class="app__content">
+
+        <h2 class="dash-heading">Indicadores do centro</h2>
+        <section class="grid grid--4" data-kpis aria-label="Indicadores principais"></section>
+
+        <section class="grid grid--2-1">
+          <article class="panel">
+            <header class="panel__header">
+              <svg class="icon" data-icon="chart"></svg>
+              <div>
+                <h2 class="panel__title">Entrada de processos</h2>
+                <p class="panel__subtitle">Últimos 15 dias, por dia de entrada</p>
+              </div>
+              <div class="panel__meta">
+                <button class="btn btn--outline btn--sm" type="button" data-toggle-table aria-pressed="false">
+                  <svg class="icon icon-sm" data-icon="table"></svg>
+                  <span>Ver tabela</span>
+                </button>
+              </div>
+            </header>
+            <div class="panel__body">
+              <div class="chart" data-chart-entradas></div>
+              <div class="chart-table" data-chart-table hidden></div>
+              <p class="chart__summary" data-chart-summary></p>
+            </div>
+          </article>
+
+          <article class="panel">
+            <header class="panel__header">
+              <svg class="icon" data-icon="checkCircle"></svg>
+              <div>
+                <h2 class="panel__title">Taxa de resolução</h2>
+                <p class="panel__subtitle">Processos concluídos nos últimos 12 meses</p>
+              </div>
+            </header>
+            <div class="panel__body" data-resolucao></div>
+          </article>
+        </section>
+
+        <h2 class="dash-heading">Hoje no centro</h2>
+        <section class="grid grid--3">
+          <article class="panel">
+            <header class="panel__header">
+              <svg class="icon" data-icon="megaphone"></svg>
+              <h2 class="panel__title">Avisos</h2>
+              <span class="count-pill" data-avisos-count></span>
+              <div class="panel__meta">
+                <button class="btn btn--ghost btn--sm" type="button" data-modal-open="modal-aviso">
+                  <svg class="icon icon-sm" data-icon="plus"></svg>
+                  <span>Novo aviso</span>
+                </button>
+              </div>
+            </header>
+            <div class="panel__body panel__body--flush panel__scroll">
+              <ul class="list" data-avisos></ul>
+            </div>
+          </article>
+
+          <article class="panel">
+            <header class="panel__header">
+              <svg class="icon" data-icon="calendar"></svg>
+              <div>
+                <h2 class="panel__title">Agenda</h2>
+                <p class="panel__subtitle">Sessões e audiências dos próximos dias úteis</p>
+              </div>
+            </header>
+            <div class="panel__body panel__body--flush panel__scroll" data-agenda></div>
+          </article>
+
+          <article class="panel">
+            <header class="panel__header">
+              <svg class="icon" data-icon="building"></svg>
+              <h2 class="panel__title">Pedidos de adesão</h2>
+              <span class="count-pill" data-adesoes-count></span>
+            </header>
+            <div class="panel__body panel__body--flush panel__scroll">
+              <ul class="list" data-adesoes></ul>
+            </div>
+            <footer class="panel__footer">
+              <span data-adesoes-footer></span>
+              <button class="btn btn--ghost btn--sm" type="button" data-soon="Pedidos de adesão">
+                <span>Ver todos</span>
+                <svg class="icon icon-sm" data-icon="arrowRight"></svg>
+              </button>
+            </footer>
+          </article>
+        </section>
+
+        <h2 class="dash-heading">Processos</h2>
+        <section class="grid grid--2-1">
+          <article class="panel">
+            <header class="panel__header">
+              <svg class="icon" data-icon="folder"></svg>
+              <div>
+                <h2 class="panel__title">Processos recentes</h2>
+                <p class="panel__subtitle" data-processos-meta>Últimas entradas</p>
+              </div>
+            </header>
+            <div class="panel__body panel__body--flush table-wrap">
+              <table class="process-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Processo</th>
+                    <th scope="col">Partes</th>
+                    <th scope="col">Fase</th>
+                    <th scope="col" class="num col-valor">Valor</th>
+                    <th scope="col">Entrada</th>
+                  </tr>
+                </thead>
+                <tbody data-processos></tbody>
+              </table>
+            </div>
+            <footer class="panel__footer">
+              <span data-processos-footer></span>
+              <button class="btn btn--ghost btn--sm" type="button" data-soon="Todos os processos">
+                <span>Ver todos os processos</span>
+                <svg class="icon icon-sm" data-icon="arrowRight"></svg>
+              </button>
+            </footer>
+          </article>
+
+          <div class="stack-panels">
+            <article class="panel">
+              <header class="panel__header">
+                <svg class="icon" data-icon="hourglass"></svg>
+                <h2 class="panel__title">Prazos a vencer</h2>
+                <span class="panel__meta">Próximos 10 dias</span>
+              </header>
+              <div class="panel__body panel__body--flush">
+                <ul class="list" data-prazos></ul>
+              </div>
+            </article>
+
+            <article class="panel">
+              <header class="panel__header">
+                <svg class="icon" data-icon="users"></svg>
+                <h2 class="panel__title">Equipa</h2>
+                <span class="panel__meta" data-equipa-meta></span>
+              </header>
+              <div class="panel__body panel__body--flush" data-equipa></div>
+            </article>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-aviso" role="dialog" aria-modal="true" aria-labelledby="modal-aviso-title" aria-hidden="true">
+    <div class="modal__dialog">
+      <header class="modal__header">
+        <svg class="icon" data-icon="megaphone"></svg>
+        <h2 class="modal__title" id="modal-aviso-title">Novo aviso</h2>
+        <button class="btn-icon btn-icon--bare modal__close" type="button" data-modal-close aria-label="Fechar">
+          <svg class="icon icon-sm" data-icon="close"></svg>
+        </button>
+      </header>
+      <form data-aviso-form novalidate>
+        <div class="modal__body">
+          <p class="modal__text">O aviso fica visível no painel inicial de todos os colaboradores.</p>
+          <p class="alert alert--danger" data-aviso-error role="alert" hidden></p>
+          <label class="field">
+            <span class="field__label">Título</span>
+            <input class="input" type="text" name="titulo" maxlength="90" placeholder="Ex.: Reunião de equipa na sexta-feira" required />
+          </label>
+          <label class="field">
+            <span class="field__label">Mensagem</span>
+            <textarea class="textarea" name="texto" maxlength="400" placeholder="Escreva o aviso" required></textarea>
+          </label>
+          <fieldset class="field">
+            <legend class="field__label">Prioridade</legend>
+            <div class="segmented">
+              <input type="radio" name="prioridade" id="prio-normal" value="normal" checked /><label for="prio-normal">Informação</label>
+              <input type="radio" name="prioridade" id="prio-importante" value="importante" /><label for="prio-importante">Importante</label>
+              <input type="radio" name="prioridade" id="prio-urgente" value="urgente" /><label for="prio-urgente">Urgente</label>
+            </div>
+          </fieldset>
+        </div>
+        <footer class="modal__footer">
+          <button class="btn btn--outline" type="button" data-modal-close>Cancelar</button>
+          <button class="btn btn--primary" type="submit">Publicar aviso</button>
+        </footer>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.3" integrity="sha384-l8ah+VgaWtk1mvOe9VC+OirC6qHFF4yH7l7mKRidV9MSti3E9F463bMp6ZVN4kuC" crossorigin="anonymous"></script>
+  <script src="assets/js/core/supabase-client.js"></script>
+  <script src="assets/js/core/icons.js"></script>
+  <script src="assets/js/core/ui.js"></script>
+  <script src="assets/js/core/session.js"></script>
+  <script src="assets/js/core/db.js"></script>
+  <script src="assets/js/core/shell.js"></script>
+  <script src="assets/js/core/team-chat.js"></script>
+  <script src="assets/js/pages/painel.js"></script>
+</body>
+</html>

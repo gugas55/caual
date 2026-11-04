@@ -69,8 +69,8 @@ const Shell = (() => {
     sidebar.innerHTML = `
       <div class="sidebar__brand">
         <a class="sidebar__logo-link" href="painel.html" aria-label="Centro de Arbitragem da Universidade Autónoma de Lisboa, painel inicial">
-          <img class="sidebar__logo" src="assets/img/logo-caual.png" alt="" />
-          <img class="sidebar__symbol" src="assets/img/logo-caual-simbolo.png" alt="" />
+          <img class="sidebar__logo" src="assets/img/logo-caual.png" width="212" height="54" alt="" />
+          <img class="sidebar__symbol" src="assets/img/logo-caual-simbolo.png" width="42" height="42" alt="" />
         </a>
       </div>
 

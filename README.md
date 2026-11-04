@@ -24,6 +24,10 @@ As entradas do menu lateral que ainda não têm página mostram um aviso "chega 
 
 ## Como abrir
 
+Versão publicada (GitHub Pages): https://gugas55.github.io/caual/
+
+Para trabalhar localmente:
+
 É preciso servir a pasta por HTTP (a política de segurança das páginas não deixa
 correr os scripts a partir de `file://`). Qualquer servidor estático serve, por exemplo:
 
